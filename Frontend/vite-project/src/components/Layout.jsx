@@ -6,6 +6,7 @@ import CreateAdv from "../pages/CreateAdv";
 import LoginPage from "../pages/Login";
 import Signup from "../pages/Signup";
 import OTPInput from "../pages/OTPInput";
+import PasswordReste from "../pages/PasswordReste";
 
 export default function Layout({ modals, setModals, carCategories, cities, setUserEmail }) {
 
@@ -26,6 +27,7 @@ export default function Layout({ modals, setModals, carCategories, cities, setUs
             carCategories={carCategories}
           />
           <LoginPage modals={modals} setModals={setModals} />
+          <PasswordReste modals={modals} setModals={setModals}/>
           <Signup modals={modals} setModals={setModals} setUserEmail={setUserEmail} />
        </>)
   

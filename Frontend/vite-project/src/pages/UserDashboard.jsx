@@ -241,17 +241,17 @@ const response= await fetch(`http://localhost:3700/api/advertisement/delete/${id
     <Row>
         <Col className='col-md-5 col-lg-3  col-12'>
         <div className='border rounded px-2 py-4'>
-        <div  style={{width:"150px", margin:"auto"}}>
-            <img src={user?.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqafzhnwwYzuOTjTlaYMeQ7hxQLy_Wq8dnQg&s"} alt="User img" style={{borderRadius:"50%", width:"100%", height:"100%"}} />
+        <div  style={{width:"150px", height:"150px", margin:"auto"}}>
+            <img src={user?.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqafzhnwwYzuOTjTlaYMeQ7hxQLy_Wq8dnQg&s"} alt="User img" style={{borderRadius:"50%", width:"100%", height:"100%", background:"dark"}} />
         </div>
         <h2 className='text-center text-green'>{user && user.name}</h2>
         <hr />  
         <p className='p-0 mt-1'><strong>Email:</strong> {user && user.email}</p>
         <p className='p-0 mt-1'> <strong>Contact Number: </strong> { user &&user.contact}</p>
         <p className='p-0 mt-1'><strong>Birth Date: </strong> {user &&   new Date(user.dob).toLocaleDateString('en-GB')}</p>
-        <button className='btn btn-success'>Edit Info</button>
+        <button className='btn btn-success' onClick={()=>alert("Profile update")}>Edit Info</button>
         <button className='btn btn-success ms-2' disabled={isLogingOut} onClick={()=>logoutHandler()}>{isLogingOut? "Loging out": "Logout"}</button>
-        <button className='btn btn-success ms-2' onClick={()=>{navigate("/chat")}}>Help </button>
+        {/* <button className='btn btn-success ms-2' onClick={()=>{navigate("/chat")}}>Help </button> */}
         </div>
         </Col>
         <Col className='col-md-7 col-lg-9 col-12'>

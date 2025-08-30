@@ -46,7 +46,7 @@ threshold: 0.02,
         <Col className={`col-lg-3 col-md-6 col-12 animate_animated ${inView ? "animate__backInDown":""}`}>
 <h4 className='mb-4'>Newsletter</h4>    
 <p>Subscribe to our Newsletter for latest updates and news</p>
-<div className='footer-search'><input type="text" placeholder='Your email' /><button className='btn btn-green'>SignUp</button></div>
+<div className='footer-search'><input type="text" style={{width:'130px', marginTop:'5px'}} placeholder='Your email' /><button className='btn btn-green' style={{float:"right"}}>SignUp</button></div>
     </Col>
     </Row>
     </Container>

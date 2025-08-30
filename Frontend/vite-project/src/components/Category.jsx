@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Card, Col, Container, Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 
-export default function Category() {
+export default function Category({cate}) {
     const { ref, inView } = useInView({
           threshold: 0.02, 
         });
     const navigate = useNavigate();
-    const [cate, setCate]=useState([])
     const imageMap = {
   "Sedan": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJFTU6UeMFAA-Rms-iYu72xtfzT3EDnen9vA&s",
   "Hatchback": "https://hips.hearstapps.com/hmg-prod/images/hyundai-veloster-2019-1280-03-1540924925.jpg?crop=1xw:1xh;center,top&resize=980:*",
@@ -26,30 +25,14 @@ export default function Category() {
 
 
 
-useEffect(() => {
-  async function fetchData() {
-  
-    try {
-      const res = await fetch("http://localhost:3700/api/advertisement/category-count");
-      if (!res.ok) throw new Error("Fetch failed");
-      const data = await res.json();
-      setCate(data);
-     
-    } catch (err) {
-     
-      console.error(err);
-    } 
-  }
 
-  fetchData(); 
-}, []); 
 
 
 
 return (
         <Container fluid>
         <h1 className={`text-green text-center mt-4 mb-4 animate__animated ${
-              inView ? 'animate__backInLeft ' : ''
+              inView ? 'animate__bounceInLeft' : ''
             }`}>Explore by categories</h1>
    <Row ref={ref}>
 {cate && cate.length>0 && cate.map((e)=>{
@@ -59,7 +42,7 @@ return (
             key={e._id}
             
             className={`col-lg-3 col-md-4 col-6 mb-3 animate__animated ${
-              inView ? 'animate__backInRight animate__wobble' : ''
+              inView ? 'animate__fadeInRight' : ''
             }`}
           >
 <Card style={{height:"300px", cursor:"pointer"}} className='card-hover' onClick={()=>navigate(`/category/${e._id}`)}>

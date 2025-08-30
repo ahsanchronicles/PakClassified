@@ -309,16 +309,23 @@ input[type=number] {
     width: 60% !important;
   }
 }
-@media (min-width: 568px) and (max-width: 900px) {
+@media (min-width: 568px) and (max-width: 990px) {
   .md-text-small{
     font-size: 12px;
   }
  
 }
-@media (max-width:900px) {
+@media (max-width:500px) {
    .md-mt-6{
-  margin-top: 5px;
+  margin-top: 0px !important;
+  font-size: 40px;
 }
+}
+.heading-setting{
+  position: absolute;
+  top: 65px;
+  left: 90px;
+
 }
 .chat-div{
   height: 75vh;
@@ -376,3 +383,23 @@ ul li{
   border-color: #007bff;
   box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
 }
+.cursor-pointer{
+  cursor: pointer;
+}
+.hover-shadow:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+/* @media (max-width:700px) {
+  .top-m{
+top: 65px !important;
+  }
+}
+@media (min-width:701px) and (max-width:1000px) {
+.top-m{
+top: 70px !important;
+  }
+} */
+.top-m{
+top: 65px !important;
+  }

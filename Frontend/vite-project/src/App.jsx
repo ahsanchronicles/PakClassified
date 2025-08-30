@@ -23,7 +23,8 @@ function App() {
   const [modals, setModals]=useState({
     postAdv:false,
     login:false,
-    signup:false
+    signup:false,
+    passwordForgot:false
   })
     const pakistaniCities =[
   
@@ -144,7 +145,7 @@ const carCategories = [
       <Route index element={<Home carCategories={carCategories} cities={pakistaniCities} modals={modals} setModals={setModals}/>} />
       <Route path="/categories" element={<Category />} />
         <Route path='/contact' element={<Contact/>}></Route>
-         <Route path='/chat' element={<Chat/>}></Route>
+         {/* <Route path='/chat' element={<Chat/>}></Route> */}
       <Route path='/about' element={<AboutUs/>}></Route>
         <Route path='/user-dashboard' element={<UserDashboard carCategories={carCategories} cities={pakistaniCities}/>}></Route>
         <Route path="/category/:categoryName" element={<ExploreByCategory />} />

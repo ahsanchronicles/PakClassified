@@ -11,6 +11,8 @@ userRoute.get("/me", auth,(req, res) => {
 })
 userRoute.get("/logout", userObj.logoutHandler);
 userRoute.get("/all", userObj.findAllusers);
+userRoute.post("/email", userObj.findUserByEmail);
+userRoute.post("/password/reset", userObj.forogtUpdatePasswod);
 userRoute.get("/:id", userObj.findUserById);
 userRoute.delete("/:id", userObj.deleteUser);
 userRoute.put("/update/:id", userObj.findUserByIdAndUpdate)

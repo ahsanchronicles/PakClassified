@@ -127,7 +127,9 @@ function passwordHandler(e){
 <Button variant="primary" type="submit" disabled={localLoading}>
     {localLoading? "Loading please wait..." : "Login"}  
       </Button>
-      
+          <span className='text-primary cursor-pointer' onClick={()=>props.setModals(prev=>({...prev, login:false, passwordForgot:true}))} style={{float:"right"}}>Forgot password? </span> 
+      <div className='muted mt-2' >Don't have an account? <span className='text-primary cursor-pointer' onClick={()=>props.setModals(prev=>({...prev, login:false, signup:true}))}>SignUp</span> </div>
+
     </Form>
       </Modal>
 

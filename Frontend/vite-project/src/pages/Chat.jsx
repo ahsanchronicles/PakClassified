@@ -95,8 +95,7 @@ else if(data.intent == "update_phone" && data.intent_value != "Missing"){
         text:`Your user name is not changed `,
         icon:"warning"
     })
-   }
-            
+   }  
         }
     })
   

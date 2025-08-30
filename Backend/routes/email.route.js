@@ -4,5 +4,6 @@ const emailRouter=express.Router();
 
 emailRouter.post("/", emailClassObj.sendEmail);
 emailRouter.post("/otp", emailClassObj.sendOTP);
+emailRouter.post("/recover/otp", emailClassObj.recoverOTP);
 emailRouter.post("/otp-verify", emailClassObj.otpVerify);
 module.exports=emailRouter;

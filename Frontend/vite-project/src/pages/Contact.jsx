@@ -172,7 +172,7 @@ else{
       }}
     ></div>
     <div style={{height:"100px", width:"70px", position:"absolute", top:"40px", left:"50px"}} className='border-green'></div>
-    <h1 className='text-pure-white md-mt-6' style={{position:"absolute", top:"65px", left:"80px"}}>Contact</h1>
+    <h1 className='text-pure-white md-mt-6 top-m' style={{position:"absolute", left:"80px"}}>Contact</h1>
   </div>
   <Container>
     <h2 className={`text-center my-3 fw-bold animate__animated ${inView? "animate__zoomInDown":""}`} ref={ref}>Contact for any Query</h2>

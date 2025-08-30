@@ -62,13 +62,13 @@ searchByCategory();
       }}
     ></div>
     <div style={{height:"100px", width:"70px", position:"absolute", top:"40px", left:"50px"}} className='border-green'></div>
-    <h1 className='text-pure-white' style={{position:"absolute", top:"65px", left:"80px"}}>Advertisement Categories</h1>
+    <h1 className='text-pure-white top-m' style={{position:"absolute", left:"80px"}} >Advertisement Categories</h1>
   </div>
   <Container >
 <h1  className='text-green text-center py-3' >
       {categoryName}
     </h1>
-  {error? <div  style={{minHeight:"40vh"}} className='d-flex justify-content-center align-items-center text-danger'>{error}</div>:loading?<div className="text-center my-4 d-flex justify-content-center align-items-center" style={{minHeight:"50vh"}}><span class="loader"></span></div>: <Row className='m-0'>
+  {error? <div  style={{minHeight:"40vh"}} className='d-flex justify-content-center align-items-center text-danger'>{error}</div>:loading?<div className="text-center my-4 d-flex justify-content-center align-items-center" style={{minHeight:"50vh"}}><span className="loader"></span></div>: <Row className='m-0'>
     {data &&
       data.length > 0 &&
       data.map((car) => (

@@ -1,6 +1,21 @@
 import { Button, Carousel } from "react-bootstrap";
+import { useUser } from "../context/userContext";
+import Swal from "sweetalert2";
 
 export default function CarouselComponent() {
+  const {user}=useUser()
+  function handlePostAdv(){
+    if(!user){
+      Swal.fire({
+        title:"Login required",
+        text:"Please login first to post Advertisement",
+        icon:"error",
+        timer:1300,
+        showCancelButton:false,
+        showConfirmButton:false
+      })
+    }
+  }
   return (
     <Carousel
       data-bs-theme="success"
@@ -37,7 +52,7 @@ export default function CarouselComponent() {
               <Button variant="success" className="px-4 py-2">
                 Search A Car
               </Button>
-              <Button variant="primary" className="px-4 py-2">
+              <Button variant="primary" className="px-4 py-2" onClick={handlePostAdv}>
                 Post Advertisement
               </Button>
             </div>

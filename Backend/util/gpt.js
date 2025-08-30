@@ -4,8 +4,8 @@ import messageModel from "../models/Message.model.js";
 export async function createIntent(message, userId){
     try{
 
-    const previousMessages = await messageModel.find({ userId }).sort({ createdAt: -1 }).limit(10).lean();
-
+    const result = await messageModel.find({ userId }).sort({ createdAt: -1 }).limit(10).lean();
+const previousMessages = await result.json()
     const response= await fetch("https://api.groq.com/openai/v1/chat/completions",{
         method:"post",
         headers:{
@@ -141,7 +141,7 @@ export async function finalGPTResponse(message) {
             Backend tumhein json mein de ga ka kya kya cheeezain update hui hain. Unki base par professional user friendly tone mein reply generate karna aur wo cheez bhi mention karna jo change hui like:
             Congrats! Apka account ka user name Ali se successfully Ahsan ho gaya hai. Account ko re-login krein updates ko dekhna ke liye.
             Backend response: (${message})
-
+            
             Apna bas aik object dena hai like this:
             {"reply":"Aapka contact number successfully 03121234567 update kar diya gaya hai."}
             In case of invalid contact number set intent_value to empty, and user reply to give valid contact number.

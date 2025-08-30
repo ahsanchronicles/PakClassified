@@ -18,7 +18,6 @@ const [data, setData]=useState({
   name:{Value:"", error:"", valid:false},
   email:{Value:"", error:"", valid:false},
   password:{Value:"", error:"", valid:false},
-  security_Qus:{Value:"", error:"", valid:false},
   security_Ans:{Value:"", error:"", valid:false},
   birth:{Value:"", error:"", valid:false},
   contact:{Value:"", error:"", valid:false},
@@ -38,10 +37,7 @@ async function handleSignUpSubmit(){
            setData((prev)=>({...prev, password:{Value:"", error:"Required", valid:false}}))
            return
     }
-    if(!data.security_Qus.Value){
-           setData((prev)=>({...prev, security_Qus:{Value:"", error:"Required", valid:false}}))
-           return
-    }
+   
    if(!data.security_Ans.Value){
            setData((prev)=>({...prev, security_Ans:{Value:"", error:"Required", valid:false}}))
            return
@@ -59,7 +55,7 @@ async function handleSignUpSubmit(){
            return
     }
 
-    if(!data.name.valid || !data.email.valid || !data.password.valid || !data.security_Qus.valid || !data.security_Ans.valid || !data.birth.valid || !data.contact.valid || !data.image.valid){
+    if(!data.name.valid || !data.email.valid || !data.password.valid || !data.security_Ans.valid || !data.birth.valid || !data.contact.valid || !data.image.valid){
       return
     }
     setLoading(true);
@@ -72,12 +68,11 @@ const otpRes= await fetch("http://localhost:3700/api/email/otp",{
   body:JSON.stringify({email:data.email.Value})
 })
 if(otpRes.ok){
-  navigate("/otp-verification", { state: { email: data.email.Value, data } });
+  navigate("/otp-verification", { state: { email: data.email.Value, data , purpose:"signup"} });
   setData({
   name:{Value:"", error:"", valid:false},
   email:{Value:"", error:"", valid:false},
   password:{Value:"", error:"", valid:false},
-  security_Qus:{Value:"", error:"", valid:false},
   security_Ans:{Value:"", error:"", valid:false},
   birth:{Value:"", error:"", valid:false},
   contact:{Value:"", error:"", valid:false},
@@ -156,20 +151,6 @@ function passwordHandler(e){
     }
   }catch(err){
     console.log("Error in emailHandler (signup)")
-    console.log(err);
-  }
-}
-function secQuestionHandler(e){
-  try{
-    const temp= e.target.value;
-    if(temp.length>=10){
-      setData((prev)=>({...prev, security_Qus:{Value:temp, error:"", valid:true}}))
-    }else{
-     setData((prev)=>({...prev, security_Qus:{Value:temp, error:"Minimum 10 characters allowed", valid:false}}))
-
-    }
-  }catch(err){
-    console.log("Error in nameHandler (signup)")
     console.log(err);
   }
 }
@@ -271,8 +252,7 @@ if(temp.length==11 && /^\d+$/.test(temp)){
 
       <Form.Group className="mb-3">
         <Form.Label>Security Question</Form.Label>
-        <Form.Control onChange={secQuestionHandler} disabled={loading} value={data.security_Qus.Value} type="text" placeholder="Enter security question"/>
-        {check && data.security_Qus.error && <div className='text-danger'>{data.security_Qus.error}</div>}
+        <Form.Control disabled={true} value="Your first pet’s name?"/>
       </Form.Group> 
       <Form.Group className="mb-3">
         <Form.Label>Security Answer</Form.Label>

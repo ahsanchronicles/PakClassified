@@ -6,37 +6,38 @@ const messageModel = require("../models/Message.model");
 const { createIntent, finalGPTResponse } = require("../util/gpt");
 
 class UserClass{
-      createUser= async(req, res)=>{
-try{
-const {name, email, password, birthDate, sequrityQuestion, sequrityAnswer, contact, image}=req.body;
-const checkUser= await userModel.findOne({email});
-if(checkUser){
-    res.status(409).json({message:"User with this email already exist."})
-    return
-}
-if(name &&  email && password && birthDate && sequrityQuestion && sequrityAnswer && contact && image){
-    const hashPassword= await bcrypt.hash(password, 10);
-   const user= await userModel.create({name, email, password:hashPassword, birthDate, sequrityQuestion, sequrityAnswer, contact, image});
+        createUser= async(req, res)=>{
+  try{  
+  const {name, email, password, birthDate, sequrityQuestion, sequrityAnswer, contact, image}=req.body;
+  const checkUser= await userModel.findOne({email});
+  if(checkUser){
+      res.status(409).json({message:"User with this email already exist."})
+      return
+  }
+  if(name &&  email && password && birthDate && sequrityQuestion && sequrityAnswer && contact && image){
+      const hashPassword= await bcrypt.hash(password, 10);
+    const user= await userModel.create({name, email, password:hashPassword, birthDate, sequrityQuestion, sequrityAnswer, contact, image});
 
-   const payLoad={
-    id: user._id,
-  name:user.name,
-  email:user.email
-}
-   const token= jwt.sign(payLoad, process.env.mySecret, {expiresIn:"1d"});
-    res.cookie(process.env.myCookie, token)
-   res.status(201).json({message:"User created successully",token:token, payLoad:payLoad});
-   return
-}
-else{
-    res.status(400).json({ message: "Required fields are missing" });
-}
-}
-catch(err){
-    console.log("Error: "+ err.message)
-     res.status(500).json({message:"Internal server error."})
-}
-    }
+    const payLoad={
+      id: user._id,
+    name:user.name,
+    email:user.email,
+    image:user.image
+  }
+    const token= jwt.sign(payLoad, process.env.mySecret, {expiresIn:"1d"});
+      res.cookie(process.env.myCookie, token)
+    res.status(201).json({message:"User created successully",token:token, payLoad:payLoad});
+    return
+  }
+  else{
+      res.status(400).json({ message: "Required fields are missing" });
+  }
+  }
+  catch(err){
+      console.log("Error: "+ err.message)
+      res.status(500).json({message:"Internal server error."})
+  }
+      }
 
     findUserById=async(req, res)=>{
    try{
@@ -61,7 +62,6 @@ catch(err){
 findUserByIdAndUpdate = async (req, res) => {
   try {
     const id = req.params.id;
-    console.log("id", id)
     const { name, email, birthDate, sequrityQuestion, sequrityAnswer, contact, image } = req.body;
     const changedData={}
 const oldUserData=await userModel.findById(id).lean();
@@ -73,15 +73,14 @@ const oldUserData=await userModel.findById(id).lean();
 
     if (!user) {
      
-      const Reply= await finalGPTResponse(`Backend response: No user found, it looks user is not login`)
-      // Save GPT message in DB
-      await messageModel.create({
-        userId: id,
-        text: Reply.reply,
-        sender: "gpt",
-        status: "processed"
-      });
-
+      // const Reply= await finalGPTResponse(`Backend response: No user found, it looks user is not login`)
+      // // Save GPT message in DB
+      // await messageModel.create({
+      //   userId: id,
+      //   text: Reply.reply,
+      //   sender: "gpt",
+      //   status: "processed"
+      // });
       return res.status(404).json({ message: Reply });
     }
 if(oldUserData.name != user.name) changedData.name={old:oldUserData.name, new:user.name}
@@ -98,15 +97,15 @@ if(oldUserData.birthDate != user.birthDate) changedData.birthDate={old:oldUserDa
       image: user.image,
     };
 
-  const Reply= await finalGPTResponse(`Backend response: User profile Changed successfully, changed fields: ${JSON.stringify(changedData)}`)
+  // const Reply= await finalGPTResponse(`Backend response: User profile Changed successfully, changed fields: ${JSON.stringify(changedData)}`)
 
-    // Save GPT message in DB
-    await messageModel.create({
-      userId: user._id,
-      text: Reply.reply,
-      sender: "gpt",
-      status: "processed"
-    });
+  //   // Save GPT message in DB
+  //   await messageModel.create({
+  //     userId: user._id,
+  //     text: Reply.reply,
+  //     sender: "gpt",
+  //     status: "processed"
+  //   });
 
     res.status(200).json({ message: Reply, user: safeData });
   } catch (err) {
@@ -125,6 +124,20 @@ if(oldUserData.birthDate != user.birthDate) changedData.birthDate={old:oldUserDa
     res.status(500).json({ message: Reply });
   }
 };
+findUserByEmail=async (req, res)=>{
+  try{
+const {email}=req.body;
+const user= await userModel.findOne({email});
+if(!user){
+  res.status(404).json({message:"No user found"})
+}else{
+  res.status(200).json(user)
+}
+  }catch(err){
+    console.log(err.message)
+    res.status(500).send("Internal server error in find user by email")
+  }
+}
     deleteUser=async(req, res)=>{
     try{
       const id=req.params.id;
@@ -159,6 +172,34 @@ if(oldUserData.birthDate != user.birthDate) changedData.birthDate={old:oldUserDa
   } catch (err) {
     console.log("Error: " + err.message);
     res.status(500).json({ message: "Internal server error." });
+  }
+}
+forogtUpdatePasswod=async (req, res)=>{
+  try{
+    console.log(req.body)
+const {id, password}=req.body;
+   if (!id || !password) {
+      return res.status(400).json({ message: "ID and new password required" });
+    }
+      if (password.length < 8) {
+      return res.status(400).json({ message: "Password must be at least 8 characters long" });
+    }
+    
+const hash= await bcrypt.hash(password, 10);
+const updated=await userModel.findByIdAndUpdate(id, 
+  { password: hash },
+  { new: true, runValidators: true }
+)
+console.log("update", updated)
+
+   if (!updated) {
+      return res.status(404).json({ message: "User not found!" });
+    }
+    res.status(200).json({ message: "Password updated successfully!" });
+
+  }catch(err){
+    console.log(err.message)
+    res.status(500).json({message:"Internal server error"})
   }
 }
  logoutHandler = async (req, res) => {

@@ -15,7 +15,7 @@ const emailSchema= mongoose.Schema(
         },
         message:{
             type:String,
-            required:true
+            required:true   
         }
     }
 )

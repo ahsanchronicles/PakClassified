@@ -33,7 +33,7 @@ export default function AboutUs() {
       }}
     ></div>
     <div style={{height:"100px", width:"70px", position:"absolute", top:"40px", left:"50px"}} className='border-green'></div>
-    <h1 className='text-pure-white md-mt-6' style={{position:"absolute", top:"65px", left:"80px"}}>About Us</h1>
+    <h1 className='text-pure-white md-mt-6 top-m' style={{position:"absolute", left:"80px"}}>About Us</h1>
   </div>
   <Container>
     <Row style={{minHeight:"400px"}} ref={ref}>

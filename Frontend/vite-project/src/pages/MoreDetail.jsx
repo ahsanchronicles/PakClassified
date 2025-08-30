@@ -70,8 +70,8 @@ export default function MoreDetail() {
           className="border-green"
         ></div>
         <h1
-          className="text-pure-white"
-          style={{ position: "absolute", top: "65px", left: "80px" }}
+          className="text-pure-white top-m"
+          style={{ position: "absolute", left: "80px" }}
         >
           Car Details
         </h1>
@@ -119,7 +119,7 @@ export default function MoreDetail() {
             </Col>
             <Col className="col-md-5 col-12 m-md-0 mt-4">
               <div className=" rounded bg-light-green p-3" style={{ width: "fit-content" }}>
-                <h4 className="mb-0 pb-0 mx-2 mt-2">Advertisement Summary</h4>
+                <h4 className="mb-0 pb-0 mx-2">Advertisement Summary</h4>
                 <ul className=" ps-1 py-3">
                   <li className="pt-2">
                     <GrNext className="text-green" /> &nbsp;{" "}

@@ -48,10 +48,11 @@ function NavBar(props) {
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse >
             <Nav className="ms-auto my-2 my-lg-0 nav" navbarScroll>
-              <Nav.Link onClick={() => navigate("/")} className="animate__animated animate__backInLeft">Home</Nav.Link>
-              <Nav.Link onClick={()=>navigate("/about")} className="animate__animated animate__backInLeft">About</Nav.Link>
-              <NavDropdown title="Categories" id="navbarScrollingDropdown" >
-                <NavDropdown.Item onClick={() => navigate("/categories")} >All Categories</NavDropdown.Item>
+              <Nav.Link onClick={() => navigate("/")}>Home</Nav.Link>
+              <Nav.Link onClick={()=>navigate("/about")}>About</Nav.Link>
+              {/* <Nav.Link onClick={()=>navigate("/chat")} className="animate__animated animate__backInLeft">Help</Nav.Link> */}
+              <NavDropdown title="Categories" id="navbarScrollingDropdown" style={{position:"relative"}} >
+                <NavDropdown.Item onClick={() => navigate("/categories")} style={{position:"absoulte", zIndex:100}} >All Categories</NavDropdown.Item>
                 {props.carCategories?.map(category => (
                   <NavDropdown.Item 
                     key={category.title} 
@@ -61,8 +62,8 @@ function NavBar(props) {
                   </NavDropdown.Item>
                 ))}
               </NavDropdown>
-              <Nav.Link onClick={()=>navigate("/contact")} className="animate__animated animate__backInLeft">Contact</Nav.Link>
-              <button className="btn-green animate__animated animate__backInLeft" onClick={handleShow} >
+              <Nav.Link onClick={()=>navigate("/contact")}>Contact</Nav.Link>
+              <button className="btn-green" onClick={handleShow} >
                 Post Advertisement  <CgArrowRight size={20} />
               </button>
             </Nav>
